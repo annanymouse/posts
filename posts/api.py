@@ -3,8 +3,6 @@ import json
 from flask import request, Response, url_for
 from jsonschema import validate, ValidationError
 
-#from flask.ext.restless import APIManager
-
 import models
 import decorators
 from posts import app
@@ -36,12 +34,7 @@ def posts_get():
     elif body_like:
         posts = posts.filter(models.Post.body.contains(body_like))
     else:
-        #posts = posts.all().order_by(models.Post.id)
         posts = posts.all()
-    
-#     if title_like:
-#         posts = posts.filter(models.Post.title.contains(title_like))
-#     posts = posts.order_by(models.Post.id)
 
     # Convert the posts to JSON and return a response
     data = json.dumps([post.as_dictionary() for post in posts])
